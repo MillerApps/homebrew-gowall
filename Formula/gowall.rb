@@ -12,10 +12,32 @@ class Gowall < Formula
   end
 
   test do
-    # Create a test file
-    (testpath/"test.jpg").write <<~EOS
-      Test Image
-    EOS
-    assert_match "Image processed", shell_output("#{bin}/gowall convert test.jpg -t catppuccin")
+    # Set temporary home directory for isolation
+    ENV["HOME"] = testpath.to_s
+
+    # Create minimal valid JPEG (1x1 pixel)
+    test_image = testpath/"test.jpg"
+    test_image.binwrite [
+      0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46,
+      0x00, 0x01, 0x01, 0x01, 0x00, 0x48, 0x00, 0x48, 0x00, 0x00,
+      0xFF, 0xDB, 0x00, 0x43, 0x00, 0xFF, 0xDA, 0x00, 0x08,
+      0x01, 0x01, 0x00, 0x00, 0x3F, 0x00, 0xFF, 0xD9
+    ].pack("C*")
+
+    # Run conversion command
+    output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1")
+
+    # Verify terminal output messages
+    assert_match(/Processing single image.../i, output)
+    assert_match(/Image processed and saved as .*\/Pictures\/gowall\/test\.jpg/i, output)
+
+    # Verify file system changes
+    output_dir = testpath/"Pictures/gowall"
+    output_file = output_dir/"test.jpg"
+    
+    assert_predicate output_dir, :directory?, "Output directory not created"
+    assert_predicate output_file, :exist?, "Processed image missing"
+    assert output_file.size.positive?, "Processed image is empty"
   end
 end
+
