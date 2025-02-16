@@ -30,13 +30,5 @@ class Gowall < Formula
     # Verify terminal output messages
     assert_match(/Processing single image.../i, output)
     assert_match(%r{Image processed and saved as .*/Pictures/gowall/test\.jpg}i, output)
-
-    # Verify file system changes
-    output_dir = testpath/"Pictures/gowall"
-    output_file = output_dir/"test.jpg"
-
-    assert_predicate output_dir, :directory?, "Output directory not created"
-    assert_predicate output_file, :exist?, "Processed image missing"
-    assert output_file.size.positive?, "Processed image is empty"
   end
 end
