@@ -15,14 +15,12 @@ class Gowall < Formula
     # Set temporary home directory for isolation
     ENV["HOME"] = testpath.to_s
 
-    # Create minimal valid JPEG (1x1 pixel)
+    # Load the valid JPEG file from one level up from the formula file.
+    jpeg_path = Pathname.new(File.expand_path("../1x1.jpeg", __FILE__))
+
+    # Write its binary content into the test directory.
     test_image = testpath/"test.jpg"
-    test_image.binwrite [
-      0xFF, 0xD8, 0xFF, 0xE0, 0x00, 0x10, 0x4A, 0x46, 0x49, 0x46,
-      0x00, 0x01, 0x01, 0x01, 0x00, 0x48, 0x00, 0x48, 0x00, 0x00,
-      0xFF, 0xDB, 0x00, 0x43, 0x00, 0xFF, 0xDA, 0x00, 0x08,
-      0x01, 0x01, 0x00, 0x00, 0x3F, 0x00, 0xFF, 0xD9
-    ].pack("C*")
+    test_image.binwrite(valid_jpeg_path.binread)
 
     # Run conversion command
     output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1", 1)
