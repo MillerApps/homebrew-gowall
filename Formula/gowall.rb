@@ -23,7 +23,7 @@ class Gowall < Formula
     test_image.binwrite(jpeg_path.binread)
 
     # Run conversion command
-    output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1", 1)
+    output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1")
 
     # Verify terminal output messages
     assert_match(/Processing single image.../i, output)
