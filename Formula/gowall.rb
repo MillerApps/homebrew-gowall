@@ -25,7 +25,7 @@ class Gowall < Formula
     ].pack("C*")
 
     # Run conversion command
-    output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1")
+    output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1", 1)
 
     # Verify terminal output messages
     assert_match(/Processing single image.../i, output)
