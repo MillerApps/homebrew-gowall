@@ -1,17 +1,20 @@
-# Millerapps Gowall
+# Millerapps Tap
 
 ## How do I install these formulae?
 
-`brew install millerapps/gowall/<formula>`
+`brew install millerapps/tap/<formula>`
 
-Or `brew tap millerapps/gowall` and then `brew install <formula>`.
+Or `brew tap millerapps/tap` and then `brew install <formula>`.
 
 Or, in a [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) `Brewfile`:
 
 ```ruby
-tap "millerapps/gowall"
+tap "millerapps/tap"
 brew "<formula>"
 ```
+## formulae avliable
+
+1) gowall
 
 ## Documentation
 
