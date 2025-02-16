@@ -1,0 +1,25 @@
+name: Formula Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-22.04, macos-13, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Run Tests
+        run: |
+          brew install --build-from-source Formula/gowall.rb
+          brew test gowall
+          brew audit --strict gowall
+
