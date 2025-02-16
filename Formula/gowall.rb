@@ -20,7 +20,7 @@ class Gowall < Formula
 
     # Write its binary content into the test directory.
     test_image = testpath/"test.jpg"
-    test_image.binwrite(valid_jpeg_path.binread)
+    test_image.binwrite(jpeg_path.binread)
 
     # Run conversion command
     output = shell_output("#{bin}/gowall convert #{test_image} -t nord 2>&1", 1)
