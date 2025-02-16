@@ -16,7 +16,7 @@ class Gowall < Formula
     ENV["HOME"] = testpath.to_s
 
     # Load the valid JPEG file from one level up from the formula file.
-    jpeg_path = Pathname.new(File.expand_path("../../1x1.jpeg", __FILE__))
+    jpeg_path = Pathname.new(File.expand_path('../1x1.jpeg', __dir__))
 
     # Write its binary content into the test directory.
     test_image = testpath/"test.jpg"
