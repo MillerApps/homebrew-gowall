@@ -1,5 +1,5 @@
 class Gowall < Formula
-  desc "A tool to convert a Wallpaper's color scheme & more"
+  desc "Tool to convert a Wallpaper's color scheme & more"
   homepage "https://achno.github.io/gowall-docs/"
   url "https://github.com/Achno/gowall/archive/refs/tags/v0.2.0.tar.gz"
   version "0.2.0"
